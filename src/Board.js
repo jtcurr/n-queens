@@ -79,12 +79,36 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
-      return false; // fixme
+      //start a counter to hold nubmer of rooks or queens in a row
+      var counter = 0;
+      console.log(this.attributes);
+      console.log(Array.isArray(this.attributes));
+      //loop over row array
+      for (var i = 0; i < this.attributes[rowIndex].length; i++) {
+        //if element = 1, increase counter
+        if (this.attributes[rowIndex][i] === 1) {
+          counter++;
+        }
+      } 
+      //if we have discovered more than one rook or queen in a row, we will return true(ERROR!)
+      if (counter > 1) {
+        return true;
+      }
+      //if we have not discovered a conflict (counter being 1 or less), return false
+      return false;
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      return false; // fixme
+      //loop over all keys in atrributes
+      for (var key in this.attributes) {
+      //if hasRowConflictAt returns true, then return true
+        if (this.hasRowConflictAt(key) === true) {
+          return true;
+        }
+      }
+      //else return false 
+      return false;
     },
 
 
@@ -94,12 +118,37 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      return false; // fixme
+      //start a counter to keep track of the number of rooks or queens in a column
+      var counter = 0;
+      //loop through the attributes object
+      for (var key in this.attributes) {
+        //check if attribute key at colIndex equals 1 
+        if (this.attributes[key][colIndex] === 1) {
+          //increase counter
+          counter++;
+        }
+      }
+      //check if counter is greater than 1
+      //we will return true(ERROR!)
+      if (counter > 1) {
+        return true;
+      }
+      //otherwise return false (no conflicts);
+      return false; 
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      return false; // fixme
+      // this.attributes[0].length = 4. Loop through the first array property of this.attributes object
+      // evaluate using hasColConflict on each index of each array of attributes
+      for (var i = 0; i < this.attributes[0].length; i++) {
+        if (this.hasColConflictAt(i) === true) {
+          //return true (contians conflict)
+          return true;
+        }
+      }
+      //return false (no conflicts)
+      return false;
     },
 
 
@@ -109,6 +158,10 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
+       //create two variables (y and x) to hold the next coordinate to check against argument ([0,argument])
+      //create a for loop that starts at argument until i = array[0].length
+      //increase y and x by one
+      //if the value at [0, argument] === value at [y, x]
       return false; // fixme
     },
 
