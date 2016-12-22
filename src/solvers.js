@@ -28,15 +28,16 @@ window.findNRooksSolution = function(n) {
     var board = new Board({n: n}); //pass an array or object
     //set index of first row to 1
     board.attributes[0][i] = 1;
-    // Hanyen: store board object in Tree.value
     masterTree.addChild(board);
-
     //create a loop that will increment the row value up
-
-      //loop  that will set next index to 1
+    for (var key in board.attributes) {
+      //loop through current row
+      for (var x = i; x < n; x++) {
+        // set next index to 1
         // run helper function (any row conflict and any col conflict) to see if there is a conflict
           //if there is not a conlict add as a child to tree
-          //if there is a conflict, return that index to zero
+      }
+    }     //if there is a conflict, return that index to zero
   }
 
   
