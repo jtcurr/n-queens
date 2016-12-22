@@ -81,8 +81,6 @@
     hasRowConflictAt: function(rowIndex) {
       //start a counter to hold nubmer of rooks or queens in a row
       var counter = 0;
-      console.log(this.attributes);
-      console.log(Array.isArray(this.attributes));
       //loop over row array
       for (var i = 0; i < this.attributes[rowIndex].length; i++) {
         //if element = 1, increase counter
@@ -161,7 +159,6 @@
       //create two variables (y and x) to hold the next coordinate to check against argument ([0,argument])
       var x = majorDiagonalColumnIndexAtFirstRow;
       var y;
-      debugger;
       if (row === undefined) {
         y = 0;
       } else {
@@ -172,10 +169,10 @@
       //increase y and x by one
         x++;
         y++;
-        if (y === this.attributes[0].length - 1) { 
+        if (y === this.attributes[0].length) { 
           return false;
         }
-        if (x === this.attributes[0].length - 1) { 
+        if (x === this.attributes[0].length) { 
           return false;
         }
 
@@ -192,7 +189,7 @@
     hasAnyMajorDiagonalConflicts: function() {
       //loop through each key in attributes
       for (var key in this.attributes) {
-        //look through each array at the current key
+        //look through each array at the current key to find first rook or queen in row
         for (var i = 0; i < this.attributes[key].length; i++) {
           //if there is a 1 at the index
           if (this.attributes[key][i] === 1) {
@@ -214,13 +211,54 @@
     // --------------------------------------------------------------
     //
     // test if a specific minor diagonal on this board contains a conflict
-    hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+    hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow, row) {
+      //create two variables (y and x) to hold the next coordinate to check against argument ([0,argument])
+      var x = minorDiagonalColumnIndexAtFirstRow;
+      var y;
+      if (row === undefined) {
+        y = 0;
+      } else {
+        y = row;
+      }
+      //create a for loop that starts at argument until i = 0
+      for (var i = minorDiagonalColumnIndexAtFirstRow; i > 0; i--) {
+        //decrease y and x by one
+        x--;
+        y++;
+        if (x < 0) {
+          return false;
+        }
+        if (y > this.attributes[0].length - 1) {
+          return false;
+        }
+        //if the next minor diagonal value = 1
+        if ( this.attributes[y][x] === 1) {
+          debugger;
+          //return true (conflict!)
+          return true;
+        }
+      }
+      //else return false (no conflict found)
+      return false;
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      return false; // fixme
+      //loop through each key in this.attributes
+      for (var key in this.attributes) {
+        //look through each array at the current key to find first rook or queen in row
+        for (var i = 0; i < this.attributes[key].length; i++) {
+          //if there is a 1 at the index
+          if (this.attributes[key][i] === 1) {
+            //pass the key and the index into hasMinorDiagonalConflictAt
+            if (this.hasMinorDiagonalConflictAt(i, key)) {
+            //return true (conflict!!)
+              return true;
+            }
+          }
+        }
+      }  
+      return false;
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
