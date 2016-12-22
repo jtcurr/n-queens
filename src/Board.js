@@ -158,13 +158,24 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-       //create two variables (y and x) to hold the next coordinate to check against argument ([0,argument])
+      //create two variables (y and x) to hold the next coordinate to check against argument ([0,argument])
+      var x = majorDiagonalColumnIndexAtFirstRow;
+      var y = 0;
       //create a for loop that starts at argument until i = array[0].length
+      for (var i = majorDiagonalColumnIndexAtFirstRow; i < this.attributes[0].length - 1; i++) {
       //increase y and x by one
-      //if the value at [0, argument] === value at [y, x]
-      return false; // fixme
-    },
+        x++;
+        y++;
 
+        //if the next major diagonal value = 1
+        if (this.attributes[y][x] === 1) {
+          //return true (conflict!)
+          return true;
+        }
+      }
+      //else return false (no conflict found)
+      return false;
+    },
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
       return false; // fixme
