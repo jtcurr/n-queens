@@ -13,22 +13,34 @@
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n rooks placed such that none of them can attack each other
 window.findNRooksSolution = function(n) {
-  //make a master array to hold solutions
-  let masterArray = [];
-  //each recursive call will create a new sub array with all postions of rooks
-  var subArray = [];
-  for (var i = 0; i < n; i++) {
-    var pushArr = [];
-    for (var j = 0; j < n; j++) {
-      pushArr.push(0);
-    }
-    subArray.push(pushArr);
-  }
-  var recurFunc = function() {
-
+  var Tree = function (val) {
+    this.value = val,
+    this.children = [];
   };
-  //loop through master array to see if any arrays pass all the tests
-    //if they do then push into master array;
+  Tree.prototype.addChild = function (val) {
+    var child = new Tree(val);
+    this.children.push(child);
+  };
+  var masterTree = new Tree(new Board({n: n}));
+  //create a for loop to the iterate over each column in the first row with length of n
+  for (var i = 0; i < n; i++) {
+  //create an instance of Board object
+    var board = new Board({n: n}); //pass an array or object
+    //set index of first row to 1
+    board.attributes[0][i] = 1;
+    // Hanyen: store board object in Tree.value
+    masterTree.addChild(board);
+
+    //create a loop that will increment the row value up
+
+      //loop  that will set next index to 1
+        // run helper function (any row conflict and any col conflict) to see if there is a conflict
+          //if there is not a conlict add as a child to tree
+          //if there is a conflict, return that index to zero
+  }
+
+  
+
   console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
   // check if solution pass our test
   
