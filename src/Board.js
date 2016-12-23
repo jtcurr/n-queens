@@ -233,7 +233,6 @@
         }
         //if the next minor diagonal value = 1
         if ( this.attributes[y][x] === 1) {
-          debugger;
           //return true (conflict!)
           return true;
         }
