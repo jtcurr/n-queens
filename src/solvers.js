@@ -13,6 +13,7 @@
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n rooks placed such that none of them can attack each other
 window.findNRooksSolution = function(n) {
+  
   var Tree = function (val) {
     this.value = val,
     this.children = [];
@@ -21,23 +22,38 @@ window.findNRooksSolution = function(n) {
     var child = new Tree(val);
     this.children.push(child);
   };
+  console.log(new Board({n: n}));
   var masterTree = new Tree(new Board({n: n}));
   //create a for loop to the iterate over each column in the first row with length of n
   for (var i = 0; i < n; i++) {
-  //create an instance of Board object
+  //CREATE an instance of Board object
     var board = new Board({n: n}); //pass an array or object
     //set index of first row to 1
     board.attributes[0][i] = 1;
-    masterTree.addChild(board);
+    // ADD board to masterTree's children array // hanyen: we need to instantiate new object
+    // var branch = new Tree(board);
+    // masterTree.children.push(branch);
+    debugger;
+    masterTree.addChild(board); //hanyen: are we adding an object or just array?
+    console.log(masterTree);
     //create a loop that will increment the row value up
     for (var key in board.attributes) {
       //loop through current row
-      for (var x = i; x < n; x++) {
+      for (var x = i + 1; x < n; x++) {
         // set next index to 1
+        board.attributes[key][x] = 1;
         // run helper function (any row conflict and any col conflict) to see if there is a conflict
+        if (board.hasAnyRowConflicts() === false && board.hasAnyColConflicts() === false) {
           //if there is not a conlict add as a child to tree
-      }
-    }     //if there is a conflict, return that index to zero
+          //hanyen: instantiate a new object
+          //hanyen: use the addChild method to add 
+          masterTree.children[0].addChild(board); 
+        } 
+        if (board.hasAnyRowConflicts() === true || board.hasAnyColConflicts() === true) { //if there is a conflict, return that index to zero
+          board.attributes[key][x] = 0;
+        }
+      }  
+    }     
   }
 
   
